@@ -68,5 +68,12 @@ import './index.css'
 // 7.2 配置 webpack.config.js 让webpack拥有该插件功能
 // 7.3 打包后观察效果
 
+// 目标8：打包 less 代码
+// 8.1 新建 less 代码（设置背景图）并引入到 src/login/index.js中
+import './index.less'
+// 8.2 下载 less 和 less-loader 本地软件包
+// 8.3 配置 webpack.config.js 让webpack拥有该插件功能
+// 8.4 打包后观察效果
+
 
 
