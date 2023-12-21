@@ -38,3 +38,30 @@ document.querySelector('.btn').addEventListener('click',()=>{
     // 打包代码：npm run build
     // login.html文件放到dist下
 })
+
+// 目标4：使用html-webpack-plugin 插件生成 html 网页文件，并引入打包后的其他资源
+// 4.1 下载 html-webpack-plugin 本地软件包
+// 4.2 配置 webpack.config.js 让webpack 拥有插件功能
+// 4.3 重新打包观察效果
+
+// 目标5：打包css代码
+// 5.1 准备css代码，并引入到js中
+// 5.2 下载 css-loader 和 style-loader 本地软件包
+// 5.3 配置 webpack.config.js 让webpack 拥有该加载器功能
+// 5.4 打包后观察效果
+
+// 5.1 准备css代码，并引入到js中
+
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './index.css'
+// 5.2 下载 css-loader 和 style-loader 本地软件包
+// 5.3 配置 webpack.config.js 让webpack 拥有该加载器功能
+// 5.4 打包后观察效果
+
+// 目标6：优化-提取 css 代码到单独的 css 文件中
+// 6.1 下载 mini-css-extract-plugin 本地软件包
+// 6.2 配置 webpack.config.js 让webpack拥有该插件功能
+// 6.3 打包后观察效果
+
+
+
