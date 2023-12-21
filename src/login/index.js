@@ -63,5 +63,10 @@ import './index.css'
 // 6.2 配置 webpack.config.js 让webpack拥有该插件功能
 // 6.3 打包后观察效果
 
+// 目标7：优化-压缩 css 代码
+// 7.1 下载 css-minimizer-webpack-plugin 本地软件包
+// 7.2 配置 webpack.config.js 让webpack拥有该插件功能
+// 7.3 打包后观察效果
+
 
 

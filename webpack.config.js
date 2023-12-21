@@ -2,6 +2,7 @@ const path = require('path');
 // 配置包
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
     // 入口
@@ -28,8 +29,17 @@ module.exports = {
             {
                 test: /\.css$/i,
                 // use: ['style-loader', 'css-loader'],
-                use:[MiniCssExtractPlugin.loader,"css-loader"]
+                use: [MiniCssExtractPlugin.loader, "css-loader"]
             },
+        ],
+    },
+
+    // 优化
+    optimization: {
+        minimizer: [
+            // 在 webpack@5 中，你可以使用 `...` 语法来扩展现有的 minimizers (即 `terser-webpack-plugin`), 保证js代码还能压缩
+            `...`, //保证js代码还能压缩
+            new CssMinimizerPlugin(),
         ],
     },
 };
