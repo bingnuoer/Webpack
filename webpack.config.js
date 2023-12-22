@@ -5,6 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
+    // 打包模式（development 开发模式-使用相关内置优化）
+    mode:'development', 
     // 入口
     entry: path.resolve(__dirname, 'src/login/index.js'),
     // 出口
@@ -20,7 +22,9 @@ module.exports = {
             template: path.resolve(__dirname, 'public/login.html'), //模板文件
             filename: path.resolve(__dirname, 'dist/login/index.html') // 输出文件路径 
         }),
-        new MiniCssExtractPlugin() //生成css文件
+        new MiniCssExtractPlugin({
+            filename:'./login/index.css' //dist目录下 拼接路径
+        }) //生成css文件
     ],
 
     // 加载器（让 webpack 识别更多模块文件内容）

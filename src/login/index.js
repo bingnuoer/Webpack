@@ -134,6 +134,13 @@ document.querySelector('.btn').addEventListener('click', () => {
     // login.html文件放到dist下
 })
 
+// 目标11:配置开发服务器环境webpack -dev-server
+// 11.1 下载webpack-dev-server 软件包到当前项目
+// 11.2设置打包的模式为开发模式，配置自定义命令
+// 11.3 使用npm run dev来启动开发服务器，试试热更新效果
+
+console.log("观察页面是否有自动更新");
+
 
 
 
