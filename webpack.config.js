@@ -3,10 +3,11 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const webpack = require('webpack')
 
-module.exports = {
+const config = {
     // 打包模式（development 开发模式-使用相关内置优化）
-    mode:'development', 
+    mode: 'development',
     // 入口
     entry: path.resolve(__dirname, 'src/login/index.js'),
     // 出口
@@ -23,8 +24,11 @@ module.exports = {
             filename: path.resolve(__dirname, 'dist/login/index.html') // 输出文件路径 
         }),
         new MiniCssExtractPlugin({
-            filename:'./login/index.css' //dist目录下 拼接路径
-        }) //生成css文件
+            filename: './login/index.css' //dist目录下 拼接路径
+        }), //生成css文件
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        })
     ],
 
     // 加载器（让 webpack 识别更多模块文件内容）
@@ -33,13 +37,13 @@ module.exports = {
             {
                 test: /\.css$/i,
                 // use: ['style-loader', 'css-loader'],
-                use: [MiniCssExtractPlugin.loader, "css-loader"]
+                use: [process.env.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader, "css-loader"]
             },
             {
                 test: /\.less$/i,
                 use: [
                     // compiles Less to CSS
-                    'style-loader',
+                    process.env.NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
                     'less-loader',
                 ],
@@ -63,5 +67,18 @@ module.exports = {
             new CssMinimizerPlugin(),
         ],
     },
+
+    // 解析
+    resolve: {
+        // 别名
+        alias: {
+            '@': path.resolve(__dirname, 'src')
+        }
+    }
 };
+// 开发环境下使用 source map 选项-开发环境调错
+if (process.env.NODE_ENV === 'development') {
+    config.devtool = 'inline-source-map'
+}
+module.exports = config
 

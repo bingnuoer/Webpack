@@ -141,6 +141,36 @@ document.querySelector('.btn').addEventListener('click', () => {
 
 console.log("观察页面是否有自动更新");
 
+// 目标13: webpack 环境下区分两种模式
+// 开发模式: style-loader 内嵌 CSS 代码在js中，让热替换更快
+// 生产模式:提取 css 代码，让浏览器缓存和并行下载js和css文件
+// 13.1 下载cross-env 软件包到当前项目中
+// 13.2 配置自定义命令，传入参数名和值到process.env 对象上(它是Node.js 环境变量)
+// 13.3 在webpack.config. js调用使用做判断区分
+// 13.4 重新打包观察两种模式区别
+
+
+// 目标14:前端-注入环境变量
+// 需求:前端项目代码中，开发模式下打印语句生效，生产模式下打印语句失效
+if (process.env.NODE_ENV === 'production') {
+    console.log = function () { };
+}
+console.log('开发模式下生效，生产模式下失效');
+
+// 目标15: source-map 调试代码
+// 问题: error 和warning代码的位置和源代码对不上，不方便我们调试!
+// 解决:启动webpack的source-map 资源地图功能
+// 15.1 在webpack.config.js 配置devtool 选项和值开启功能(注意:只在开发环境下使用) 
+// 15.2代码中造成错误，并在开发服务器环境下查看效果
+console.warn('错误代码');
+
+// 目标16:路径解析别名设置
+// 作用:让我们前端代码引入路径更简单(而且使用绝度路径)
+// 16.1在webpack.config. js中配置resolve.alias 选项
+// 16.2 在代码中尝试并在开发环境和生产环境测试效果
+import youAxios from '@/utils/request.js'
+console.log(youAxios);
+
 
 
 
