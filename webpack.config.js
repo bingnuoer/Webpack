@@ -34,12 +34,20 @@ module.exports = {
             {
                 test: /\.less$/i,
                 use: [
-                  // compiles Less to CSS
-                  'style-loader',
-                  'css-loader',
-                  'less-loader',
+                    // compiles Less to CSS
+                    'style-loader',
+                    'css-loader',
+                    'less-loader',
                 ],
-              },
+            },
+            //   图片处理
+            {
+                test: /\.(png|jpg|gif)$/i,
+                type: 'asset',
+                generator: {
+                    filename: 'assets/[hash][ext][query]'
+                }
+            },
         ],
     },
 

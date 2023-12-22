@@ -1,6 +1,6 @@
 // 目标1：体验webpack打包过程
 // 1.1 准备项目和源代码
-import { checkPhone,checkCode } from "../utils/check";
+import { checkPhone, checkCode } from "../utils/check";
 // 传入数据
 console.log(checkPhone('13299976547'));
 console.log(checkCode('12232434232312'));
@@ -19,25 +19,25 @@ console.log(checkCode('12232434232312'));
 // 3.3 打包并手动复制网页到dist下，引入打包后的JS，运行
 
 // 3.2 编写核心 JS 逻辑代码
-document.querySelector('.btn').addEventListener('click',()=>{
-    const phone = document.querySelector('.login-form [name=mobile]').value
-    const code = document.querySelector('.login-form [name=code]').value
+// document.querySelector('.btn').addEventListener('click', () => {
+//     const phone = document.querySelector('.login-form [name=mobile]').value
+//     const code = document.querySelector('.login-form [name=code]').value
 
-    if(!checkPhone(phone)){
-        console.log("手机号长度必须是11位");
-        return
-    }
+//     if (!checkPhone(phone)) {
+//         console.log("手机号长度必须是11位");
+//         return
+//     }
 
-    if(!checkCode(code)){
-        console.log("验证码长度必须是6位");
-        return
-    }
+//     if (!checkCode(code)) {
+//         console.log("验证码长度必须是6位");
+//         return
+//     }
 
-    console.log('提交到服务器登录...');
+//     console.log('提交到服务器登录...');
 
-    // 打包代码：npm run build
-    // login.html文件放到dist下
-})
+//     // 打包代码：npm run build
+//     // login.html文件放到dist下
+// })
 
 // 目标4：使用html-webpack-plugin 插件生成 html 网页文件，并引入打包后的其他资源
 // 4.1 下载 html-webpack-plugin 本地软件包
@@ -74,6 +74,68 @@ import './index.less'
 // 8.2 下载 less 和 less-loader 本地软件包
 // 8.3 配置 webpack.config.js 让webpack拥有该插件功能
 // 8.4 打包后观察效果
+
+// 目标9：打包资源模块(图片处理)
+// 9.1 创建 img 标签并动态添加到页面，配置 webpack.config.js
+// 9.2 打包后观察效果和区别
+
+// 注意：js中引入本地图片资源要用 import 方式（如果是网络图片http地址，字符串可以直接写）
+import imgObj from './assets/logo.png'
+const theImg = document.createElement('img')
+theImg.src = imgObj
+// 图片加到页面上
+document.querySelector('.login-wrap').appendChild(theImg)
+
+// 目标10:完成登录功能
+// 10.1 使用npm下载axios(体验npm作用在前端项目中)
+// 10.2准备并修改utils工具包源代码导出实现函数
+// 10.3 导入并编写逻辑代码，打包后运行观察效果
+
+// 10.3 导入并编写逻辑代码，打包后运行观察效果
+import myAxios from '../utils/request'
+import { myAlert } from "../utils/alert";
+// import axios from "../utils/request";
+
+// 逻辑代码
+document.querySelector('.btn').addEventListener('click', () => {
+    // 获取值
+    const phone = document.querySelector('.login-form [name=mobile]').value
+    const code = document.querySelector('.login-form [name=code]').value
+
+    if (!checkPhone(phone)) {
+        myAlert(false, '手机号长度必须是11位')
+        console.log("手机号长度必须是11位");
+        return
+    }
+
+    if (!checkCode(code)) {
+        myAlert(false, '验证码长度必须是6位')
+        console.log("验证码长度必须是6位");
+        return
+    }
+
+    // console.log('提交到服务器登录...');
+    // 发送请求
+    myAxios({
+        url: '/v1_0/authorizations',
+        method: 'POST',
+        data: {
+            mobile: phone,
+            code: code
+        }
+    }).then(() => {
+        myAlert(true, '登录成功！')
+    }).catch((error) => {
+        // myAlert(false, error.)
+        console.log(error.response.data.message);
+    })
+
+    // 打包代码：npm run build
+    // login.html文件放到dist下
+})
+
+
+
 
 
 
